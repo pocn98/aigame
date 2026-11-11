@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b1c"><title>ASTRO BREAKER — 행성 파괴 프로젝트</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+:root{color-scheme:dark;--bg:#080b1c;--panel:rgba(17,23,48,.82);--line:rgba(143,164,255,.16);--cyan:#70e7ff;--purple:#a58bff;--gold:#ffd477;--muted:#8994b8}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 35%,#18204a 0%,#0b1027 42%,#050711 100%);color:#f3f5ff;font-family:'Noto Sans KR',sans-serif;overflow-x:hidden}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.shell{max-width:1240px;margin:auto;padding:24px 24px 40px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}
+.brand{font:800 22px Orbitron,sans-serif;letter-spacing:2px;color:#fff}.brand span{color:var(--cyan)}.sub{font-size:11px;letter-spacing:3px;color:#8490b7;margin-top:5px}
+.pill{border:1px solid var(--line);background:#111831aa;border-radius:999px;padding:9px 14px;color:#aeb9dc;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;backdrop-filter:blur(16px);box-shadow:0 14px 40px #0003}
+.stat{padding:15px 18px}.stat-label{color:var(--muted);font-size:11px;letter-spacing:1px}.stat-value{font:700 21px Orbitron,sans-serif;margin-top:7px}.stat-value small{font:500 11px 'Noto Sans KR';color:var(--muted)}
+.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.85fr);gap:16px}.stage{padding:20px;min-height:590px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 43%,#28336555,transparent 57%),var(--panel)}
+.stage-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.eyebrow{font-size:10px;letter-spacing:2px;color:var(--cyan)}h1{font-size:21px;margin:6px 0}.planet-name{font-size:12px;color:#9ba8ce}
+.level{font:600 11px Orbitron;color:var(--gold);border:1px solid #ffd47744;border-radius:8px;padding:8px 10px}
+.planet-zone{height:340px;display:grid;place-items:center;position:relative}.orbit{position:absolute;width:min(76vw,340px);height:min(76vw,340px);border:1px solid #8b9cff22;border-radius:50%;animation:spin 28s linear infinite}.orbit:before{content:"";position:absolute;left:15%;top:13%;width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 16px var(--cyan)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.planet-button{border:0;background:none;padding:0;cursor:pointer;position:relative;z-index:2;filter:drop-shadow(0 0 28px #7c75ff55);transition:transform .12s}.planet-button:hover{transform:scale(1.035)}.planet-button:active{transform:scale(.96)}
+.planet{width:218px;height:218px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 32% 25%,#e7c69a 0 3%,transparent 4%),radial-gradient(ellipse at 35% 30%,#b9a0d2 0 10%,transparent 11%),radial-gradient(ellipse at 65% 65%,#6a497f 0 13%,transparent 14%),radial-gradient(ellipse at 30% 70%,#d19a75 0 12%,transparent 13%),radial-gradient(circle at 35% 30%,#f4cda0,#a96f76 42%,#4e416e 72%,#211e43 100%);box-shadow:inset -24px -15px 35px #090b26aa,inset 12px 8px 22px #fff3,0 0 55px #9b81ff55}
+.planet:before{content:"";position:absolute;inset:-10%;background:repeating-linear-gradient(165deg,transparent 0 22px,#ffffff0b 23px 25px,transparent 26px 48px);transform:rotate(-15deg)}
+.planet:after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(110deg,transparent 40%,#080b1c88 90%)}
+.planet.cracked{animation:shake .22s linear}@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.hit{position:absolute;color:#fff;font:700 17px Orbitron;pointer-events:none;z-index:5;text-shadow:0 0 12px var(--cyan);animation:float .8s forwards}@keyframes float{to{transform:translateY(-65px);opacity:0}}
+.hp-wrap{max-width:440px;margin:0 auto;width:90%}.hp-line{display:flex;justify-content:space-between;font-size:11px;color:#aeb9dc;margin-bottom:8px}.bar{height:10px;border-radius:20px;background:#080d20;overflow:hidden;border:1px solid #ffffff13}.bar>i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#8c78ff,#70e7ff);border-radius:20px;transition:width .18s;box-shadow:0 0 14px #70e7ff77}
+.click-hint{text-align:center;color:#8290b7;font-size:11px;margin-top:12px}.action-row{display:flex;justify-content:center;gap:10px;margin-top:14px}.action{border:1px solid #70e7ff55;background:#10283b99;color:var(--cyan);padding:10px 17px;border-radius:10px;font-weight:700;cursor:pointer}.action:hover{background:#173b52}
+.side{display:flex;flex-direction:column;gap:16px}.panel{padding:18px}.panel-title{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:800;margin-bottom:13px}.panel-title small{font-size:10px;color:var(--muted);font-weight:500}
+.upgrade{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #ffffff12;background:#ffffff06;border-radius:12px;margin-top:9px}.upgrade-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:#8e83ff1b;font-size:21px;flex-shrink:0}.upgrade-info{min-width:0;flex:1}.upgrade-name{font-size:12px;font-weight:800}.upgrade-desc{font-size:10px;color:var(--muted);margin-top:4px}.buy{border:1px solid #8e83ff66;background:#29234d;color:#d5caff;border-radius:9px;padding:8px 10px;min-width:78px;font-size:11px;font-weight:800;cursor:pointer}.buy:disabled{opacity:.35;cursor:not-allowed}.buy b{display:block;font:700 10px Orbitron;margin-top:3px}
+.mission{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:#c0c9e5;padding:9px 0;border-bottom:1px solid #ffffff0c}.mission:last-child{border:0}.mission strong{color:var(--gold);white-space:nowrap}
+.log{font-size:10px;color:#8995b8;line-height:1.8;min-height:43px}.bottom{display:flex;justify-content:space-between;align-items:center;margin-top:17px;color:#647092;font-size:10px}.reset{border:0;background:none;color:#7885a9;text-decoration:underline;cursor:pointer;font-size:10px}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);opacity:0;background:#1b2546;border:1px solid #70e7ff66;padding:12px 18px;border-radius:12px;font-size:12px;transition:.25s;pointer-events:none;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.stage{min-height:550px}.stats{gap:7px}.stat{padding:12px}.stat-value{font-size:16px}.shell{padding:16px}.planet-zone{height:310px}}
+@media(max-width:420px){.brand{font-size:17px}.pill{font-size:10px}.planet{width:185px;height:185px}.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:span 2}}
+</style></head>
+<body><canvas id="stars"></canvas><main class="shell">
+<header class="top"><div><div class="brand">ASTRO <span>BREAKER</span></div><div class="sub">THE PLANET DESTRUCTION PROJECT</div></div><div class="pill">✦ 우주 광산 연합 · SECTOR 07</div></header>
+<section class="stats">
+<div class="stat"><div class="stat-label">보유 별가루</div><div class="stat-value" id="dust">0 <small>✦</small></div></div>
+<div class="stat"><div class="stat-label">초당 채굴량</div><div class="stat-value" id="dps">0 <small>✦ / 초</small></div></div>
+<div class="stat"><div class="stat-label">누적 파괴 행성</div><div class="stat-value" id="destroyed">0 <small>개</small></div></div>
+</section>
+<div class="layout"><section class="panel stage">
+<div class="stage-head"><div><div class="eyebrow">CURRENT TARGET · <span id="sector">01</span></div><h1 id="planetTitle">푸른 먼지 행성</h1><div class="planet-name" id="planetDesc">작고 조용한 암석 행성. 첫 번째 목표다.</div></div><div class="level" id="planetLevel">PLANET 01</div></div>
+<div class="planet-zone"><div class="orbit"></div><button class="planet-button" id="planetBtn" aria-label="행성 공격하기"><div class="planet" id="planet"></div></button></div>
+<div class="hp-wrap"><div class="hp-line"><span>행성 내구도</span><strong id="hpText">100 / 100</strong></div><div class="bar"><i id="hpBar"></i></div></div>
+<div class="click-hint">행성을 클릭하거나 아래 소행성 발사 버튼을 눌러 공격하세요</div>
+<div class="action-row"><button class="action" id="launch">☄ 소행성 발사 <span id="powerLabel">(+1)</span></button></div>
+<div class="bottom"><span id="status">채굴 장비가 준비되었습니다.</span><button class="reset" id="reset">저장 데이터 초기화</button></div>
+</section>
+<aside class="side"><section class="panel"><div class="panel-title">⚙ 소행성 강화 <small>UPGRADE MODULES</small></div>
+<div class="upgrade"><div class="upgrade-icon">☄</div><div class="upgrade-info"><div class="upgrade-name">소행성 질량 증가</div><div class="upgrade-desc">클릭 공격력 +1</div></div><button class="buy" id="buyPower">강화 <b id="costPower">25 ✦</b></button></div>
+<div class="upgrade"><div class="upgrade-icon">🛰️</div><div class="upgrade-info"><div class="upgrade-name">자동 채굴 드론</div><div class="upgrade-desc">초당 공격력 +1</div></div><button class="buy" id="buyDrone">구매 <b id="costDrone">60 ✦</b></button></div>
+<div class="upgrade"><div class="upgrade-icon">💥</div><div class="upgrade-info"><div class="upgrade-name">충돌 추진 장치</div><div class="upgrade-desc">클릭 공격력 x2</div></div><button class="buy" id="buyBoost">연구 <b id="costBoost">250 ✦</b></button></div>
+</section>
+<section class="panel"><div class="panel-title">📡 탐사 기록 <small>MISSION LOG</small></div><div class="mission"><span>현재 소행성 레벨</span><strong id="powerLevel">Lv. 1</strong></div><div class="mission"><span>운용 중인 드론</span><strong id="droneCount">0 대</strong></div><div class="mission"><span>행성 파괴 보상</span><strong id="reward">+50 ✦</strong></div><div class="mission"><span>총 누적 별가루</span><strong id="earned">0 ✦</strong></div></section>
+<section class="panel"><div class="panel-title">🪐 우주 통신 <small>INCOMING</small></div><div class="log" id="log">[SYSTEM] 탐사선 연결 완료.<br>[SYSTEM] 첫 번째 행성을 파괴해 보세요.</div></section></aside></div>
+</main><div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const planets=[["푸른 먼지 행성","작고 조용한 암석 행성. 첫 번째 목표다.",100,50],["붉은 사막 행성","거친 모래 폭풍이 몰아치는 행성.",350,130],["얼음 고리 행성","차가운 얼음층이 단단하게 얼어붙었다.",1100,320],["용암 핵 행성","뜨거운 마그마가 행성 전체를 감싸고 있다.",4200,850],["수정 거대 행성","빛나는 수정층이 충격을 흡수한다.",16000,2200],["암흑 행성","빛조차 삼켜버리는 미지의 행성.",65000,6500],["고대 행성","오래전 문명의 흔적이 남아 있다.",260000,18000],["초거대 가스 행성","거대한 폭풍이 끊임없이 몰아친다.",1100000,65000],["별의 심장","항성에 가까운 에너지를 품고 있다.",5200000,250000]];
+const fresh=()=>({dust:0,total:0,power:1,clickLevel:1,drones:0,boosts:0,planet:0,hp:planets[0][2],destroyed:0});
+let s={...fresh(),...(JSON.parse(localStorage.getItem('astroBreakerSave')||'{}'))};
+const fmt=n=>{if(n>=1e12)return (n/1e12).toFixed(2)+'T';if(n>=1e9)return (n/1e9).toFixed(2)+'B';if(n>=1e6)return (n/1e6).toFixed(2)+'M';if(n>=1e3)return (n/1e3).toFixed(1)+'K';return Math.floor(n).toLocaleString('ko-KR')};
+const clickCost=()=>Math.floor(25*Math.pow(1.65,s.clickLevel-1));
+const droneCost=()=>Math.floor(60*Math.pow(1.72,s.drones));
+const boostCost=()=>Math.floor(250*Math.pow(3.2,s.boosts));
+const clickDamage=()=>s.power*Math.pow(2,s.boosts);
+const dps=()=>s.drones;
+function save(){localStorage.setItem('astroBreakerSave',JSON.stringify(s))}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1700)}
+function log(t){$('log').innerHTML='[SYSTEM] '+t+'<br>'+ $('log').innerHTML.split('<br>').slice(0,1).join('')}
+function render(){
+$('dust').innerHTML=fmt(s.dust)+' <small>✦</small>';$('dps').innerHTML=fmt(dps())+' <small>✦ / 초</small>';$('destroyed').innerHTML=s.destroyed+' <small>개</small>';
+const p=planets[s.planet]||planets[planets.length-1];$('planetTitle').textContent=p[0];$('planetDesc').textContent=p[1];$('planetLevel').textContent='PLANET '+String(s.planet+1).padStart(2,'0');$('sector').textContent=String(s.planet+1).padStart(2,'0');
+$('hpText').textContent=fmt(Math.max(0,s.hp))+' / '+fmt(p[2]);$('hpBar').style.width=Math.max(0,s.hp/p[2]*100)+'%';
+$('powerLabel').textContent='(+'+fmt(clickDamage())+')';$('powerLevel').textContent='Lv. '+s.clickLevel;$('droneCount').textContent=s.drones+' 대';$('reward').textContent='+'+fmt(p[3])+' ✦';$('earned').textContent=fmt(s.total)+' ✦';
+$('costPower').textContent=fmt(clickCost())+' ✦';$('costDrone').textContent=fmt(droneCost())+' ✦';$('costBoost').textContent=fmt(boostCost())+' ✦';
+$('buyPower').disabled=s.dust<clickCost();$('buyDrone').disabled=s.dust<droneCost();$('buyBoost').disabled=s.dust<boostCost();
+}
+function earn(n){s.dust+=n;s.total+=n}
+function attack(n){if(s.hp<=0)return;s.hp-=n;if(s.hp<=0){const p=planets[s.planet]||planets[planets.length-1];s.hp=0;render();setTimeout(()=>destroyPlanet(p),180)}else render()}
+function destroyPlanet(p){earn(p[3]);s.destroyed++;toast('행성 파괴 성공! +'+fmt(p[3])+' ✦');log(p[0]+' 파괴 완료. 보상을 획득했습니다.');s.planet++;if(s.planet>=planets.length){s.planet=0;toast('모든 행성 정복! 새로운 우주 구역이 열렸습니다.')}s.hp=planets[s.planet][2];save();render()}
+function hit(){attack(clickDamage());const el=$('planet');el.classList.remove('cracked');void el.offsetWidth;el.classList.add('cracked');const h=document.createElement('span');h.className='hit';h.textContent='-'+fmt(clickDamage());h.style.left=(38+Math.random()*24)+'%';h.style.top=(25+Math.random()*45)+'%';$('planet-zone').appendChild(h);setTimeout(()=>h.remove(),800);save()}
+$('planetBtn').addEventListener('click',hit);$('launch').addEventListener('click',hit);
+$('buyPower').onclick=()=>{let c=clickCost();if(s.dust<c)return;s.dust-=c;s.clickLevel++;s.power++;toast('소행성 질량이 증가했습니다.');save();render()};
+$('buyDrone').onclick=()=>{let c=droneCost();if(s.dust<c)return;s.dust-=c;s.drones++;toast('자동 채굴 드론을 배치했습니다.');save();render()};
+$('buyBoost').onclick=()=>{let c=boostCost();if(s.dust<c)return;s.dust-=c;s.boosts++;toast('충돌 추진 장치 연구 완료!');save();render()};
+$('reset').onclick=()=>{if(confirm('정말 모든 게임 데이터를 초기화할까요?')){s=fresh();save();render();log('새로운 탐사를 시작합니다.');toast('데이터가 초기화되었습니다.')}};
+setInterval(()=>{if(s.drones>0&&s.hp>0){attack(s.drones);if(Math.random()<.2)save()}},1000);
+setInterval(save,10000);render();
+const c=$('stars'),ctx=c.getContext('2d');let stars=[];function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;stars=Array.from({length:Math.min(180,Math.floor(innerWidth/6))},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+.3,a:Math.random()*.7+.2,v:Math.random()*.25+.05}))}function draw(){ctx.clearRect(0,0,c.width,c.height);for(const p of stars){p.y+=p.v*devicePixelRatio;if(p.y>c.height)p.y=0;ctx.globalAlpha=p.a;ctx.fillStyle='#dbe8ff';ctx.beginPath();ctx.arc(p.x,p.y,p.r*devicePixelRatio,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;requestAnimationFrame(draw)}addEventListener('resize',resize);resize();draw();
+</script></body></html>
