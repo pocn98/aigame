@@ -17,3 +17,15 @@
 ## 기술
 - HTML / CSS / Vanilla JavaScript
 - 외부 라이브러리 및 서버 불필요
+
+
+## 추가 게임: DARKROOM — 불이 꺼진 방
+
+- 플레이: [DARKROOM 바로 실행](./darkroom/)
+- 파일: `darkroom/index.html`
+- 별도 설치 없이 브라우저에서 실행할 수 있습니다.
+- 기존 ASTRO BREAKER / 2040 파일은 그대로 유지하고 새 폴더에 게임을 추가했습니다.
+
+GitHub Pages가 활성화되어 있다면 아래 주소에서도 플레이할 수 있습니다.
+
+`https://pocn98.github.io/aigame/darkroom/`
