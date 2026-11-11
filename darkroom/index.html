@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b10">
+<title>DARKROOM — 방 안의 비밀</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@500;600;700&display=swap');
+:root{--bg:#090b10;--panel:#11151d;--line:#29313e;--text:#d8dce2;--muted:#747e8d;--red:#bd5555;--glow:#d49b69}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 20%,#1a2029 0,#0d1118 45%,#080a0e 100%);color:var(--text);font-family:'IBM Plex Mono',monospace;display:grid;place-items:center;padding:26px 16px}
+button,input{font:inherit}.shell{width:min(100%,900px)}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:0 0 15px;color:var(--muted);font-size:11px;letter-spacing:.16em}.brand{color:#c3c8d0;font-weight:600}.status{color:#a86a6a}.hero{padding:46px 0 28px}.eyebrow{font-size:10px;color:var(--red);letter-spacing:.28em}.hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(38px,8vw,66px);font-weight:500;letter-spacing:-.06em;line-height:1.15;margin:13px 0}.hero p{color:#8993a1;font-size:12px;line-height:1.9;margin:0;max-width:600px}.room{display:grid;grid-template-columns:1.35fr .8fr;gap:13px}.scene,.terminal{background:linear-gradient(145deg,#151b24,#0e1219);border:1px solid var(--line);border-radius:5px;min-height:350px;position:relative;overflow:hidden}.scene{padding:20px;background-image:linear-gradient(#ffffff03 1px,transparent 1px),linear-gradient(90deg,#ffffff03 1px,transparent 1px);background-size:28px 28px}.room-label{font-size:10px;color:#6f7988;letter-spacing:.15em}.window{position:absolute;top:68px;left:50%;transform:translateX(-50%);width:148px;height:166px;border:7px solid #252d38;background:linear-gradient(180deg,#101a2a,#1c2430 65%,#10151d);box-shadow:0 0 35px #8298b018,inset 0 0 25px #0009}.window:before,.window:after{content:"";position:absolute;background:#303a47}.window:before{width:3px;height:100%;left:50%}.window:after{height:3px;width:100%;top:50%}.moon{position:absolute;width:24px;height:24px;border-radius:50%;background:#a9a8a0;top:35px;right:29px;box-shadow:0 0 25px #d7d1b455}.clock{position:absolute;top:82px;left:28px;color:#d2a27b;font-size:20px;letter-spacing:.13em;text-shadow:0 0 13px #c87d4c55;cursor:pointer}.clock small{display:block;font-size:8px;color:#8c8179;text-align:center;margin-top:5px}.desk{position:absolute;bottom:62px;left:9%;right:9%;height:13px;background:#34302e;box-shadow:0 8px 0 #1b1c20}.drawer{position:absolute;bottom:75px;left:16%;width:100px;height:38px;border:1px solid #4a403b;background:#282421;cursor:pointer}.drawer:after{content:"";position:absolute;width:17px;height:3px;background:#9b826b;top:16px;left:40px}.frame{position:absolute;right:13%;top:77px;width:72px;height:88px;border:5px solid #34343a;background:#151a22;display:grid;place-items:center;color:#8d6c5d;font-size:17px;cursor:pointer}.plant{position:absolute;bottom:76px;right:12%;font-size:34px;filter:grayscale(.8);cursor:pointer}.rug{position:absolute;bottom:27px;left:28%;width:45%;height:23px;border:1px solid #353b43;border-radius:50%;background:#151922}.hotspot{transition:filter .2s,transform .2s}.hotspot:hover{filter:brightness(1.5);transform:scale(1.04)}.terminal{padding:21px;display:flex;flex-direction:column}.term-head{display:flex;justify-content:space-between;color:#7c8796;font-size:10px;border-bottom:1px solid var(--line);padding-bottom:13px}.dots{letter-spacing:4px;color:#7e6262}.log{font-size:11px;line-height:1.9;color:#9aa4b1;flex:1;padding:15px 0;white-space:pre-line}.log .dim{color:#586271}.log .alert{color:#c98775}.prompt{border-top:1px solid var(--line);padding-top:14px}.prompt label{display:block;font-size:10px;color:#778291;margin-bottom:9px}.entry{display:flex;gap:7px}.entry input{min-width:0;flex:1;background:#090d13;border:1px solid #303a48;color:#e1e5e9;padding:12px;border-radius:3px;outline:none;letter-spacing:.14em}.entry input:focus{border-color:#8b6a5b}.entry button,.action{background:#252d38;border:1px solid #3a4553;color:#d7dce3;padding:11px 14px;border-radius:3px;cursor:pointer;font-size:10px;letter-spacing:.08em}.entry button:hover,.action:hover{background:#333e4d}.bottom{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:15px;color:#626d7b;font-size:10px}.actions{display:flex;gap:7px}.message{min-height:20px;color:#c58a73;font-size:10px;margin-top:9px}.ending{display:none;text-align:center;padding:45px 20px;border:1px solid #4a3836;background:#171419;margin-top:14px}.ending.show{display:block}.ending h2{font:500 30px 'Noto Serif KR',serif;color:#e0c4a9}.ending p{font-size:11px;line-height:2;color:#a6a0a0}.footer{margin-top:32px;border-top:1px solid var(--line);padding-top:13px;display:flex;justify-content:space-between;color:#4f5966;font-size:9px;letter-spacing:.13em}.scan{pointer-events:none;position:fixed;inset:0;background:repeating-linear-gradient(0deg,#fff0 0 3px,#0000000b 4px);opacity:.4}
+@media(max-width:680px){.room{grid-template-columns:1fr}.scene{min-height:330px}.terminal{min-height:300px}.hero{padding-top:32px}.bottom{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="scan"></div>
+<main class="shell">
+<header class="top"><span class="brand">✳ ARCHIVE / CASE 017</span><span class="status">● CONNECTION UNSTABLE</span></header>
+<section class="hero"><div class="eyebrow">A SMALL WEB MYSTERY</div><h1>불이 꺼진 방</h1><p>누군가 이 방에 마지막으로 머문 시각은 새벽 3시 17분.<br>문은 잠겨 있고, 기록은 일부 지워져 있다. 방 안에 남겨진 흔적을 찾아 암호를 입력하라.</p></section>
+<section class="room">
+<div class="scene" aria-label="어두운 방">
+<div class="room-label">ROOM 017 · 03:17 AM</div>
+<div class="window"><div class="moon"></div></div>
+<div class="clock hotspot" role="button" tabindex="0" aria-label="벽시계" data-clue="clock">03:17<small>STOPPED</small></div>
+<div class="frame hotspot" role="button" tabindex="0" aria-label="액자" data-clue="frame">Ⅲ</div>
+<div class="drawer hotspot" role="button" tabindex="0" aria-label="책상 서랍" data-clue="drawer"></div>
+<div class="plant hotspot" role="button" tabindex="0" aria-label="화분" data-clue="plant">♧</div>
+<div class="desk"></div><div class="rug"></div>
+</div>
+<aside class="terminal">
+<div class="term-head"><span>ROOM_TERMINAL.exe</span><span class="dots">● ● ●</span></div>
+<div class="log" id="log">시스템 부팅 완료.
+방문자 기록을 불러오는 중...
+
+<span class="dim">[힌트]</span> 방 안의 물건을 클릭해 조사할 수 있다.
+<span class="dim">[목표]</span> 잠긴 기록 보관함의 암호를 찾아라.
+
+<span class="alert">주의: 너무 서두르지 말 것.</span></div>
+<div class="prompt"><label id="promptLabel">암호를 입력하세요</label><div class="entry"><input id="answer" autocomplete="off" spellcheck="false" placeholder="••••" maxlength="12"><button id="submit">ENTER ↵</button></div><div class="message" id="message" aria-live="polite"></div></div>
+</aside>
+</section>
+<div class="bottom"><span id="progress">EVIDENCE 0 / 4 · FILE LOCKED</span><div class="actions"><button class="action" id="hint">힌트 보기</button><button class="action" id="reset">처음부터</button></div></div>
+<section class="ending" id="ending"><div class="eyebrow">CASE 017 · CLOSED</div><h2>기록이 복구되었습니다.</h2><p>방 안에 남겨진 흔적은 누군가가 일부러 남긴 것이었습니다.<br>하지만 마지막 문장은 아직 해독되지 않았습니다.<br><br><span style="color:#d5a17c">“찾아낸 사람에게만 보이는 것.”</span></p><button class="action" onclick="location.reload()">다시 조사하기</button></section>
+<footer class="footer"><span>DARKROOM / AN ORIGINAL WEB MYSTERY</span><span>NO ACCOUNT · NO INSTALL</span></footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let stage=0,clues=new Set(),hintStep=0;
+const logs=[
+'벽시계의 초침은 03:17에서 멈춰 있다.\n시계 뒷면에 작게 새겨진 숫자: <span class="alert">“멈춘 순간을 기억해.”</span>',
+'서랍 안에는 오래된 메모가 있다.\n<span class="alert">“첫 번째 문은 시간이 열어 준다.”</span>\n메모 뒷면에는 액자에 대한 표시가 있다.',
+'액자 뒤에서 사진 한 장을 찾았다.\n사진에는 세 개의 점과 문장이 적혀 있다.\n<span class="alert">“셋을 보고, 거꾸로 읽어.”</span>',
+'화분 밑에서 작은 종이 조각을 발견했다.\n<span class="alert">“잎은 네 장. 하지만 보이는 건 세 장뿐.”</span>\n종이 가장자리에는 숫자 4가 적혀 있다.',
+'모든 흔적을 모았다. 마지막 암호는 처음 본 숫자를 거꾸로 읽고, 마지막에 발견한 숫자를 붙이는 것이다.'
+];
+function log(t){$('log').innerHTML=t}
+function update(){ $('progress').textContent='EVIDENCE '+clues.size+' / 4 · '+(stage===4?'FINAL LOCK READY':'FILE LOCKED'); }
+function inspect(name){
+ const data={
+ clock:['clock','벽시계','03:17. 시계는 정확히 그 시각에 멈췄다. 첫 번째 암호는 이 숫자일지도 모른다.'],
+ drawer:['drawer','책상 서랍','서랍 안에서 메모를 찾았다. “첫 번째 문은 시간이 열어 준다.”'],
+ frame:['frame','액자','액자 뒤에 사진이 있다. 사진 속 세 개의 점 아래에는 “거꾸로 읽어”라고 적혀 있다.'],
+ plant:['plant','화분','화분 아래 종이 조각. 잎은 네 장, 보이는 건 세 장. 가장자리에 숫자 4가 적혀 있다.']
+ }[name];
+ if(!data)return;
+ clues.add(name);update();
+ log('<span class="dim">['+data[1]+' 조사 완료]</span>\n'+data[2]+'\n\n'+(clues.size===4?'모든 단서를 찾았다. 암호를 입력해 보자.':'다른 물건도 조사해 보자.'));
+ $('message').textContent='단서 발견: '+data[1];
+}
+document.querySelectorAll('[data-clue]').forEach(el=>{el.addEventListener('click',()=>inspect(el.dataset.clue));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();inspect(el.dataset.clue)}})});
+function submit(){
+ const v=$('answer').value.trim().replace(/\s/g,'');
+ if(stage===0&&v==='0317'){stage=1;log(logs[0]+'\n\n<span class="alert">잠금 1 해제.</span> 이제 방 안의 흔적을 조사하라.');$('promptLabel').textContent='두 번째 암호';$('answer').value='';$('message').textContent='첫 번째 기록이 열렸다.';return}
+ if(stage===1&&clues.has('clock')&&clues.has('drawer')&&v==='3'){stage=2;log(logs[1]+'\n\n<span class="alert">잠금 2 해제.</span> 액자와 화분을 확인하라.');$('promptLabel').textContent='세 번째 암호';$('answer').value='';$('message').textContent='두 번째 기록이 열렸다.';return}
+ if(stage===2&&clues.has('frame')&&clues.has('plant')&&v==='7134'){stage=3;log(logs[2]+'\n\n<span class="alert">잠금 3 해제.</span> 마지막 기록이 나타났다.');$('promptLabel').textContent='최종 암호';$('answer').value='';$('message').textContent='마지막 잠금이 남았다.';return}
+ if(stage===3&&clues.size===4&&v==='713404'){stage=4;log(logs[4]+'\n\n<span class="alert">ACCESS GRANTED.</span>');$('ending').classList.add('show');$('message').textContent='기록 복구 완료.';update();return}
+ $('message').textContent='암호가 맞지 않거나, 아직 조사하지 않은 흔적이 있다.';
+}
+$('submit').addEventListener('click',submit);$('answer').addEventListener('keydown',e=>{if(e.key==='Enter')submit()});
+$('hint').addEventListener('click',()=>{const hints=['벽시계를 자세히 봐. 멈춘 시각이 첫 번째 열쇠야.','서랍은 시계의 단서를 확인한 뒤 살펴봐. 두 번째 암호는 짧아.','액자와 화분을 모두 조사해. 사진 속 숫자를 거꾸로 읽는 게 핵심이야.','0317을 거꾸로 읽으면 7130. 종이 조각의 4를 더해 봐. 마지막 숫자는 713404야.'];$('message').textContent='힌트: '+hints[Math.min(hintStep++,3)]});
+$('reset').addEventListener('click',()=>{if(!confirm('조사를 처음부터 다시 시작할까요?'))return;stage=0;clues.clear();hintStep=0;$('answer').value='';$('promptLabel').textContent='암호를 입력하세요';$('message').textContent='';$('ending').classList.remove('show');log('시스템 부팅 완료.\n방문자 기록을 불러오는 중...\n\n<span class="dim">[힌트]</span> 방 안의 물건을 클릭해 조사할 수 있다.\n<span class="dim">[목표]</span> 잠긴 기록 보관함의 암호를 찾아라.\n\n<span class="alert">주의: 너무 서두르지 말 것.</span>');update()});
+update();
+</script>
+</body>
+</html>
