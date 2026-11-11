@@ -43,7 +43,7 @@
 </section>
 <div class="layout"><section class="panel stage">
 <div class="stage-head"><div><div class="eyebrow">CURRENT TARGET · <span id="sector">01</span></div><h1 id="planetTitle">푸른 먼지 행성</h1><div class="planet-name" id="planetDesc">작고 조용한 암석 행성. 첫 번째 목표다.</div></div><div class="level" id="planetLevel">PLANET 01</div></div>
-<div class="planet-zone"><div class="orbit"></div><button class="planet-button" id="planetBtn" aria-label="행성 공격하기"><div class="planet" id="planet"></div></button></div>
+<div class="planet-zone" id="planet-zone"><div class="orbit"></div><button class="planet-button" id="planetBtn" aria-label="행성 공격하기"><div class="planet" id="planet"></div></button></div>
 <div class="hp-wrap"><div class="hp-line"><span>행성 내구도</span><strong id="hpText">100 / 100</strong></div><div class="bar"><i id="hpBar"></i></div></div>
 <div class="click-hint">행성을 클릭하거나 아래 소행성 발사 버튼을 눌러 공격하세요</div>
 <div class="action-row"><button class="action" id="launch">☄ 소행성 발사 <span id="powerLabel">(+1)</span></button></div>
@@ -61,7 +61,7 @@
 const $=id=>document.getElementById(id);
 const planets=[["푸른 먼지 행성","작고 조용한 암석 행성. 첫 번째 목표다.",100,50],["붉은 사막 행성","거친 모래 폭풍이 몰아치는 행성.",350,130],["얼음 고리 행성","차가운 얼음층이 단단하게 얼어붙었다.",1100,320],["용암 핵 행성","뜨거운 마그마가 행성 전체를 감싸고 있다.",4200,850],["수정 거대 행성","빛나는 수정층이 충격을 흡수한다.",16000,2200],["암흑 행성","빛조차 삼켜버리는 미지의 행성.",65000,6500],["고대 행성","오래전 문명의 흔적이 남아 있다.",260000,18000],["초거대 가스 행성","거대한 폭풍이 끊임없이 몰아친다.",1100000,65000],["별의 심장","항성에 가까운 에너지를 품고 있다.",5200000,250000]];
 const fresh=()=>({dust:0,total:0,power:1,clickLevel:1,drones:0,boosts:0,planet:0,hp:planets[0][2],destroyed:0});
-let s={...fresh(),...(JSON.parse(localStorage.getItem('astroBreakerSave')||'{}'))};
+let saved={};try{saved=JSON.parse(localStorage.getItem('astroBreakerSave')||'{}')||{}}catch(e){localStorage.removeItem('astroBreakerSave')}let s={...fresh(),...saved};
 const fmt=n=>{if(n>=1e12)return (n/1e12).toFixed(2)+'T';if(n>=1e9)return (n/1e9).toFixed(2)+'B';if(n>=1e6)return (n/1e6).toFixed(2)+'M';if(n>=1e3)return (n/1e3).toFixed(1)+'K';return Math.floor(n).toLocaleString('ko-KR')};
 const clickCost=()=>Math.floor(25*Math.pow(1.65,s.clickLevel-1));
 const droneCost=()=>Math.floor(60*Math.pow(1.72,s.drones));
