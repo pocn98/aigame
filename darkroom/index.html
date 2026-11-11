@@ -73,12 +73,12 @@ function submit(){
  const v=$('answer').value.trim().replace(/\s/g,'');
  if(stage===0&&v==='0317'){stage=1;log(logs[0]+'\n\n<span class="alert">잠금 1 해제.</span> 이제 방 안의 흔적을 조사하라.');$('promptLabel').textContent='두 번째 암호';$('answer').value='';$('message').textContent='첫 번째 기록이 열렸다.';return}
  if(stage===1&&clues.has('clock')&&clues.has('drawer')&&v==='3'){stage=2;log(logs[1]+'\n\n<span class="alert">잠금 2 해제.</span> 액자와 화분을 확인하라.');$('promptLabel').textContent='세 번째 암호';$('answer').value='';$('message').textContent='두 번째 기록이 열렸다.';return}
- if(stage===2&&clues.has('frame')&&clues.has('plant')&&v==='7134'){stage=3;log(logs[2]+'\n\n<span class="alert">잠금 3 해제.</span> 마지막 기록이 나타났다.');$('promptLabel').textContent='최종 암호';$('answer').value='';$('message').textContent='마지막 잠금이 남았다.';return}
- if(stage===3&&clues.size===4&&v==='713404'){stage=4;log(logs[4]+'\n\n<span class="alert">ACCESS GRANTED.</span>');$('ending').classList.add('show');$('message').textContent='기록 복구 완료.';update();return}
+ if(stage===2&&clues.has('frame')&&clues.has('plant')&&v==='7130'){stage=3;log(logs[2]+'\n\n<span class="alert">잠금 3 해제.</span> 마지막 기록이 나타났다.');$('promptLabel').textContent='최종 암호';$('answer').value='';$('message').textContent='마지막 잠금이 남았다.';return}
+ if(stage===3&&clues.size===4&&v==='71304'){stage=4;log(logs[4]+'\n\n<span class="alert">ACCESS GRANTED.</span>');$('ending').classList.add('show');$('message').textContent='기록 복구 완료.';update();return}
  $('message').textContent='암호가 맞지 않거나, 아직 조사하지 않은 흔적이 있다.';
 }
 $('submit').addEventListener('click',submit);$('answer').addEventListener('keydown',e=>{if(e.key==='Enter')submit()});
-$('hint').addEventListener('click',()=>{const hints=['벽시계를 자세히 봐. 멈춘 시각이 첫 번째 열쇠야.','서랍은 시계의 단서를 확인한 뒤 살펴봐. 두 번째 암호는 짧아.','액자와 화분을 모두 조사해. 사진 속 숫자를 거꾸로 읽는 게 핵심이야.','0317을 거꾸로 읽으면 7130. 종이 조각의 4를 더해 봐. 마지막 숫자는 713404야.'];$('message').textContent='힌트: '+hints[Math.min(hintStep++,3)]});
+$('hint').addEventListener('click',()=>{const hints=['벽시계를 자세히 봐. 멈춘 시각이 첫 번째 열쇠야.','서랍은 시계의 단서를 확인한 뒤 살펴봐. 두 번째 암호는 짧아.','액자와 화분을 모두 조사해. 사진 속 숫자를 거꾸로 읽는 게 핵심이야.','0317을 거꾸로 읽으면 7130. 종이 조각의 4를 마지막에 붙여 봐. 최종 암호는 71304야.'];$('message').textContent='힌트: '+hints[Math.min(hintStep++,3)]});
 $('reset').addEventListener('click',()=>{if(!confirm('조사를 처음부터 다시 시작할까요?'))return;stage=0;clues.clear();hintStep=0;$('answer').value='';$('promptLabel').textContent='암호를 입력하세요';$('message').textContent='';$('ending').classList.remove('show');log('시스템 부팅 완료.\n방문자 기록을 불러오는 중...\n\n<span class="dim">[힌트]</span> 방 안의 물건을 클릭해 조사할 수 있다.\n<span class="dim">[목표]</span> 잠긴 기록 보관함의 암호를 찾아라.\n\n<span class="alert">주의: 너무 서두르지 말 것.</span>');update()});
 update();
 </script>
